@@ -25,10 +25,12 @@ services:
   mysql:
     image: mysql:5.7
     environment:
+      - TZ=Europe/Moscow
       - MYSQL_ROOT_PASSWORD=verysecret
       - MYSQL_DATABASE=yii2advanced
       - MYSQL_USER=yii2advanced
       - MYSQL_PASSWORD=secret
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
 
   #pgsql:
   #  image: postgres:9.5
