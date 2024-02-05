@@ -1,10 +1,10 @@
 <?php
-
+use yii\bootstrap5\Modal;
 use frontend\models\Store;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\ActionColumn;
+use kartik\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -12,31 +12,97 @@ use yii\grid\GridView;
 $this->title = 'Stores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="store-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?php
+Modal::begin([
+    'id' => 'myModal',
+    'size' => 'modal-lg',
+    'title' => '<h4 class="modal-title">View Details</h4>',
+    'footer' => '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>',
+]);
+echo '<div class="modal-body">';
+echo '<ul id="device-list"></ul>';
+echo '</div>';
+Modal::end();
+?>
 
-    <p>
+<h1><?= Html::encode($this->title) ?></h1>
+<p>
         <?= Html::a('Create Store', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'created_at',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Store $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
+</p>
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+    'columns' => [
+        ['class' => 'kartik\grid\SerialColumn'],
+        'id',
+        [
+            'attribute' => 'name',
+            'format' => 'raw',
+            'value' => function ($model) {
+                return Html::a($model->name, 'javascript:void(0);', [
+                    'class' => 'open-modal',
+                    'data-store-id' => $model->id,
+                ]);
+            },
         ],
-    ]); ?>
+        'created_at',
+        [
+            'class' => ActionColumn::className(),
+            'template' => '{view} {update} {delete}',
+            'buttons' => [
+                'view' => function ($url, $model) {
+                    return Html::a('View', $url, [
+                        'title' => 'View',
+                    ]);
+                },
+                'update' => function ($url, $model) {
+                    return Html::a('Update', $url, [
+                        'title' => 'Update',
+                    ]);
+                },
+                'delete' => function ($url, $model) {
+                    return Html::a('Delete', $url, [
+                        'title' => 'Delete',
+                        'data-confirm' => 'Are you sure you want to delete this item?',
+                        'data-method' => 'post',
+                    ]);
+                },
+            ],
+            'urlCreator' => function ($action, $model, $key, $index) {
+                return Url::to([$action, 'id' => $key]);
+            },
+        ],
+    ],
+]); ?>
 
+<?php
+$js = <<<JS
+$(document).on('click', '.open-modal', function() {
+    var storeId = $(this).data('store-id');
+    var url = $(this).data('url');
+    $('#myModal').modal('show').find('.modal-body').load(url + '?storeId=' + storeId);
+    
+    // Заполняем список устройств в модальном окне
+    var deviceList = $('#device-list');
+    deviceList.empty();
 
-</div>
+    $.ajax({
+        url: '/store/get-devices', // Замените на URL вашего экшена
+        type: 'GET',
+        dataType: 'json',
+        data: {storeId: storeId},
+        success: function(data) {
+            $.each(data, function(id, serialNumber) {
+                deviceList.append('<li><a href="/device/view?id=' + id + '" target="_blank">' + serialNumber + '</a></li>');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching device list:', status, error);
+        }
+    });
+});
+JS;
+$this->registerJs($js);
+?>

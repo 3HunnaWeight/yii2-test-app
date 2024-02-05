@@ -3,8 +3,10 @@
 use frontend\models\Device;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
+use kartik\grid\ActionColumn;
+use kartik\grid\GridView;
+use kartik\select2\Select2;
+
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
@@ -20,24 +22,56 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Device', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel, // Подразумевается, что у вас есть модель поиска (search model)
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'serial_number',
-            'store_id',
+            [
+                'attribute' => 'store_id',
+                'filter' => Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'store_id',
+                    'data' => Device::getStoreList(), // Предполагается, что у вас есть метод в модели Device для получения списка магазинов
+                    'options' => ['placeholder' => 'Select a store ...'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                    ],
+                ]),
+                'value' => function ($model) {
+                    return $model->store->name; // Предполагается, что у вашей модели Device есть отношение store
+                },
+            ],
             'created_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Device $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('View', $url, [
+                            'title' => 'View',
+                        ]);
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('Update', $url, [
+                            'title' => 'Update',
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('Delete', $url, [
+                            'title' => 'Delete',
+                            'data-confirm' => 'Are you sure you want to delete this item?',
+                            'data-method' => 'post',
+                        ]);
+                    },
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    return Url::to([$action, 'id' => $key]);
+                },
             ],
         ],
     ]); ?>
-
 
 </div>

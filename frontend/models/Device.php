@@ -47,7 +47,7 @@ class Device extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'serial_number' => 'Serial Number',
-            'store_id' => 'Store ID',
+            'store_id' => 'Store',
             'created_at' => 'Created At',
         ];
     }
@@ -60,6 +60,10 @@ class Device extends \yii\db\ActiveRecord
     public function getStore()
     {
         return $this->hasOne(Store::class, ['id' => 'store_id']);
+    }
+    public static function getStoreList()
+    {
+        return \yii\helpers\ArrayHelper::map(Store::find()->all(), 'id', 'name');
     }
 
 }

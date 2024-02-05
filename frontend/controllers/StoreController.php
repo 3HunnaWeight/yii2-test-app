@@ -2,8 +2,11 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Device;
 use frontend\models\Store;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +28,12 @@ class StoreController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'timestamp' => [
+                    'class' => TimestampBehavior::className(),
+                    'attributes' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
                     ],
                 ],
             ]
@@ -63,13 +72,29 @@ class StoreController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
+    
     public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
+    public function actionGetDevices($storeId)
+    {
+        $devices = Device::find()
+            ->select(['id', 'serial_number'])
+            ->where(['store_id' => $storeId])
+            ->asArray()
+            ->all();
 
+        $result = [];
+        foreach ($devices as $device) {
+            $result[$device['id']] = $device['serial_number'];
+        }
+
+        return json_encode($result);
+    }
+   
     /**
      * Creates a new Store model.
      * If creation is successful, the browser will be redirected to the 'view' page.

@@ -3,7 +3,10 @@
 namespace frontend\controllers;
 
 use frontend\models\Device;
+use frontend\models\DeviceSearch;
+use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
+use yii\db\ActiveRecord;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +28,12 @@ class DeviceController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'timestamp' => [
+                    'class' => TimestampBehavior::className(),
+                    'attributes' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
                     ],
                 ],
             ]
@@ -52,7 +61,11 @@ class DeviceController extends Controller
             */
         ]);
 
+        $searchModel = new DeviceSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+    
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
