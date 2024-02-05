@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel, // Подразумевается, что у вас есть модель поиска (search model)
+        'filterModel' => $searchModel, 
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
@@ -34,14 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Select2::widget([
                     'model' => $searchModel,
                     'attribute' => 'store_id',
-                    'data' => Device::getStoreList(), // Предполагается, что у вас есть метод в модели Device для получения списка магазинов
+                    'data' => Device::getStoreList(), 
                     'options' => ['placeholder' => 'Select a store ...'],
                     'pluginOptions' => [
                         'allowClear' => true,
                     ],
                 ]),
                 'value' => function ($model) {
-                    return $model->store->name; // Предполагается, что у вашей модели Device есть отношение store
+                    return $model->store->name; 
                 },
             ],
             'created_at',

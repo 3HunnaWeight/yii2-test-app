@@ -18,7 +18,7 @@ use frontend\models\Store;
 
     <?= $form->field($model, 'store_id')->widget(Select2::class, [
         'data' => Store::find()->select(['name', 'id'])->indexBy('id')->column(),
-        'options' => ['placeholder' => 'Выберите склад ...'],
+        'options' => ['placeholder' => 'Choose store ...'],
         'pluginOptions' => [
             'allowClear' => true,
         ],

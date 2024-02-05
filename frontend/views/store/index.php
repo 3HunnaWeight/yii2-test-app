@@ -1,6 +1,5 @@
 <?php
 use yii\bootstrap5\Modal;
-use frontend\models\Store;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\ActionColumn;
@@ -84,12 +83,12 @@ $(document).on('click', '.open-modal', function() {
     var url = $(this).data('url');
     $('#myModal').modal('show').find('.modal-body').load(url + '?storeId=' + storeId);
     
-    // Заполняем список устройств в модальном окне
+  
     var deviceList = $('#device-list');
     deviceList.empty();
 
     $.ajax({
-        url: '/store/get-devices', // Замените на URL вашего экшена
+        url: '/store/get-devices', 
         type: 'GET',
         dataType: 'json',
         data: {storeId: storeId},

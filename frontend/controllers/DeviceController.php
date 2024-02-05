@@ -49,16 +49,6 @@ class DeviceController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Device::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-            */
         ]);
 
         $searchModel = new DeviceSearch();
