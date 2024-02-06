@@ -30,12 +30,6 @@ class DeviceController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-                'timestamp' => [
-                    'class' => TimestampBehavior::className(),
-                    'attributes' => [
-                        ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    ],
-                ],
             ]
         );
     }

@@ -19,7 +19,6 @@ Modal::begin([
     'id' => 'myModal',
     'size' => 'modal-lg',
     'title' => '<h4 class="modal-title">View Details</h4>',
-    'footer' => '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>',
 ]);
 echo '<div class="modal-body">';
 echo '<ul id="device-list"></ul>';
@@ -33,6 +32,7 @@ Modal::end();
 </p>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
     'columns' => [
         ['class' => 'kartik\grid\SerialColumn'],
         'id',
@@ -81,8 +81,7 @@ $js = <<<JS
 $(document).on('click', '.open-modal', function() {
     var storeId = $(this).data('store-id');
     var url = $(this).data('url');
-    $('#myModal').modal('show').find('.modal-body').load(url + '?storeId=' + storeId);
-    
+    $('#myModal').modal('show');
   
     var deviceList = $('#device-list');
     deviceList.empty();

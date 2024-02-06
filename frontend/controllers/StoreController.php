@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\Device;
 use frontend\models\Store;
+use frontend\models\StoreSearch;
 use yii\behaviors\TimestampBehavior;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveRecord;
@@ -30,12 +31,6 @@ class StoreController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-                'timestamp' => [
-                    'class' => TimestampBehavior::className(),
-                    'attributes' => [
-                        ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    ],
-                ],
             ]
         );
     }
@@ -51,7 +46,11 @@ class StoreController extends Controller
             'query' => Store::find(),
         ]);
 
+        $searchModel = new StoreSearch();
+        $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
+    
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
