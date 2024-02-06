@@ -41,10 +41,6 @@ class DeviceController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Device::find(),
-        ]);
-
         $searchModel = new DeviceSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
     

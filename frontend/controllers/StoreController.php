@@ -42,10 +42,7 @@ class StoreController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Store::find(),
-        ]);
-
+     
         $searchModel = new StoreSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
     
