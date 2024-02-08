@@ -1,6 +1,6 @@
 <?php
 
-use frontend\models\Device;
+use common\models\ActiveRecord\Device;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\ActionColumn;

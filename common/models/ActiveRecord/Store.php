@@ -1,7 +1,9 @@
 <?php
 
-namespace frontend\models;
+namespace common\models\ActiveRecord;
 
+
+use davidhirtz\yii2\datetime\DateTimeBehavior;
 use Yii;
 
 /**
@@ -22,7 +24,12 @@ class Store extends \yii\db\ActiveRecord
     {
         return 'store';
     }
-
+    public function behaviors()
+    {
+        return [
+            
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -35,6 +42,7 @@ class Store extends \yii\db\ActiveRecord
             [['name'], 'unique'],
         ];
     }
+
 
     /**
      * {@inheritdoc}

@@ -2,11 +2,10 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Device;
-use frontend\models\DeviceSearch;
-use yii\behaviors\TimestampBehavior;
-use yii\data\ActiveDataProvider;
-use yii\db\ActiveRecord;
+
+use common\models\ActiveRecord\Device;
+use frontend\models\SearchModel\DeviceSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -30,7 +29,19 @@ class DeviceController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['*'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    
+                    ],
+                ],
+            ],
+            
         );
     }
 
@@ -73,6 +84,7 @@ class DeviceController extends Controller
         $model = new Device();
 
         if ($this->request->isPost) {
+            $model->created_at = date('Y-m-d H:i:s', time());
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -123,7 +135,7 @@ class DeviceController extends Controller
      * Finds the Device model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Device the loaded model
+     * @return \common\models\ActiveRecord\Device the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

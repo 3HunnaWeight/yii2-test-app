@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69bd28990f93ca1b2d5feca5760176d3",
+    "content-hash": "1b6c0e070314fe43b40477b388e8720f",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -159,6 +159,51 @@
                 "source": "https://github.com/cebe/markdown"
             },
             "time": "2018-03-26T11:24:36+00:00"
+        },
+        {
+            "name": "davidhirtz/yii2-datetime-behavior",
+            "version": "v1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davidhirtz/yii2-datetime-behavior.git",
+                "reference": "d6ab696f713af624b2fe7604942ab5f53083ce09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davidhirtz/yii2-datetime-behavior/zipball/d6ab696f713af624b2fe7604942ab5f53083ce09",
+                "reference": "d6ab696f713af624b2fe7604942ab5f53083ce09",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "davidhirtz\\yii2\\datetime\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "David Hirtz",
+                    "email": "hello@davidhirtz.com"
+                }
+            ],
+            "description": "Initiates database date columns as DateTime PHP classes.",
+            "keywords": [
+                "datetime",
+                "extension",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/davidhirtz/yii2-datetime-behavior/issues",
+                "source": "https://github.com/davidhirtz/yii2-datetime-behavior/tree/v1.1.6"
+            },
+            "time": "2022-08-07T09:03:06+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -2220,30 +2265,30 @@
         },
         {
             "name": "codeception/lib-web",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeception/lib-web.git",
-                "reference": "cea9d53c9cd665498632acc417c9a96bff7eb2b0"
+                "reference": "01ff7f9ed8760ba0b0805a0b3a843b4e74165a60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeception/lib-web/zipball/cea9d53c9cd665498632acc417c9a96bff7eb2b0",
-                "reference": "cea9d53c9cd665498632acc417c9a96bff7eb2b0",
+                "url": "https://api.github.com/repos/Codeception/lib-web/zipball/01ff7f9ed8760ba0b0805a0b3a843b4e74165a60",
+                "reference": "01ff7f9ed8760ba0b0805a0b3a843b4e74165a60",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "guzzlehttp/psr7": "^2.0",
                 "php": "^8.0",
+                "phpunit/phpunit": "^9.5 | ^10.0 | ^11.0",
                 "symfony/css-selector": ">=4.4.24 <8.0"
             },
             "conflict": {
                 "codeception/codeception": "<5.0.0-alpha3"
             },
             "require-dev": {
-                "php-webdriver/webdriver": "^1.12",
-                "phpunit/phpunit": "^9.5 | ^10.0"
+                "php-webdriver/webdriver": "^1.12"
             },
             "type": "library",
             "autoload": {
@@ -2267,9 +2312,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeception/lib-web/issues",
-                "source": "https://github.com/Codeception/lib-web/tree/1.0.5"
+                "source": "https://github.com/Codeception/lib-web/tree/1.0.6"
             },
-            "time": "2024-01-13T11:54:18+00:00"
+            "time": "2024-02-06T20:50:08+00:00"
         },
         {
             "name": "codeception/module-asserts",

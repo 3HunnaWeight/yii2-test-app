@@ -2,12 +2,13 @@
 
 namespace frontend\controllers;
 
-use frontend\models\Device;
-use frontend\models\Store;
-use frontend\models\StoreSearch;
-use yii\behaviors\TimestampBehavior;
-use yii\data\ActiveDataProvider;
-use yii\db\ActiveRecord;
+
+use common\models\ActiveRecord\Device;
+use common\models\ActiveRecord\Store;
+use frontend\models\SearchModel\StoreSearch;
+
+
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -29,6 +30,17 @@ class StoreController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                    ],
+                ],
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['*'],
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    
                     ],
                 ],
             ]
@@ -91,6 +103,7 @@ class StoreController extends Controller
         $model = new Store();
 
         if ($this->request->isPost) {
+            $model->created_at = date('Y-m-d H:i:s', time());
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

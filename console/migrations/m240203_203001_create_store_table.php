@@ -15,7 +15,7 @@ class m240203_203001_create_store_table extends Migration
         $this->createTable('{{%store}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull()->unique(),
-            'created_at' => $this->timestamp(),
+            'created_at' => $this->dateTime(),
         ]);
         
     }

@@ -1,7 +1,8 @@
 <?php
 
-namespace frontend\models;
+namespace common\models\ActiveRecord;
 
+use davidhirtz\yii2\datetime\DateTimeBehavior;
 use Yii;
 
 /**
@@ -23,7 +24,13 @@ class Device extends \yii\db\ActiveRecord
     {
         return 'device';
     }
+    public function behaviors()
+    {
+        return [
 
+        ];
+   
+    }
     /**
      * {@inheritdoc}
      */
@@ -38,6 +45,7 @@ class Device extends \yii\db\ActiveRecord
             [['store_id'], 'exist', 'skipOnError' => true, 'targetClass' => Store::class, 'targetAttribute' => ['store_id' => 'id']],
         ];
     }
+
 
     /**
      * {@inheritdoc}

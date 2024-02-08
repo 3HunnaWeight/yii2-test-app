@@ -16,7 +16,7 @@ class m240203_204832_create_device_table extends Migration
             'id' => $this->primaryKey(),
             'serial_number' => $this->string()->notNull()->unique(),
             'store_id' => $this->integer()->notNull(),
-            'created_at' => $this->timestamp(),
+            'created_at' => $this->dateTime(),
         ]);
         $this->addForeignKey('fk_device_store', 'device', 'store_id', 'store', 'id', 'CASCADE', 'CASCADE');
     }

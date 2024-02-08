@@ -1,12 +1,12 @@
 <?php
 
-namespace frontend\models;
+namespace frontend\models\SearchModel;
 
+use common\models\ActiveRecord\Device;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-
-class StoreSearch extends Store
+class DeviceSearch extends Device
 {
     /**
      * {@inheritdoc}
@@ -14,9 +14,8 @@ class StoreSearch extends Store
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['created_at'], 'safe'],
-            [['name'], 'string'],
+            [['id', 'store_id'], 'integer'],
+            [['serial_number', 'created_at'], 'safe'],
         ];
     }
 
@@ -25,6 +24,7 @@ class StoreSearch extends Store
      */
     public function scenarios()
     {
+
         return Model::scenarios();
     }
 
@@ -37,7 +37,7 @@ class StoreSearch extends Store
      */
     public function search($params)
     {
-        $query = Store::find();
+        $query = Device::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -47,9 +47,12 @@ class StoreSearch extends Store
         }
         $query->andFilterWhere([
             'id' => $this->id,
-            'name' => $this->name,
+            'store_id' => $this->store_id,
             'created_at' => $this->created_at,
         ]);
+
+        $query->andFilterWhere(['like', 'serial_number', $this->serial_number]);
+
         return $dataProvider;
     }
 }
