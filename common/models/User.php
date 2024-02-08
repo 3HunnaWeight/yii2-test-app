@@ -22,7 +22,7 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
- 
+
 
     /**
      * {@inheritdoc}
@@ -37,9 +37,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function behaviors()
     {
-        return [
-            'class'=>DateTimeBehavior::class,
-        ];
+        return [];
     }
 
     /**
@@ -55,7 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return User::findOne(['id'=> $id]);
+        return User::findOne(['id' => $id]);
     }
 
     /**
@@ -77,7 +75,7 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['username' => $username]);
     }
 
-    
+
     public function getId()
     {
         return $this->getPrimaryKey();
@@ -103,16 +101,17 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->authKey = Yii::$app->security->generateRandomString();
     }
-    public function validatePassword($password){
-        return Yii::$app->security->validatePassword($password,$this->password);
-
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
-    public function HasPassword($password){
+    public function HasPassword($password)
+    {
         $this->password = Yii::$app->security->generatePasswordHash($password);
     }
 
-    public function setPassword ($password){
+    public function setPassword($password)
+    {
         $this->password = Yii::$app->security->generatePasswordHash($password);
     }
-
 }
