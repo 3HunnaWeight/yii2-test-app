@@ -38,7 +38,7 @@ php yii migrate
 
 данные для входа:
 
-имя пользователя - username 
+имя пользователя - someUser 
 
-пароль - root
+пароль - Password123
 
