@@ -1,12 +1,16 @@
 <?php
+
 namespace common\models\Behaviors;
 
+use Yii;
 use yii\base\Behavior;
 
 class DatetimeBehavior extends Behavior
 {
     public static function generateDateTime()
     {
-        return date('Y-m-d H:i:s', time());
+        Yii::$app->formatter->timeZone = 'Europe/Moscow';
+
+        return Yii::$app->formatter->asDatetime(time());
     }
 }
