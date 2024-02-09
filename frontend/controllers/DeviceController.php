@@ -3,9 +3,8 @@
 namespace frontend\controllers;
 
 
-use common\models\ActiveRecord\Device;
-use common\models\Behaviors\DatetimeBehavior;
-use frontend\models\SearchModel\DeviceSearch;
+use common\models\active_record\Device;
+use frontend\models\search_model\DeviceSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -38,11 +37,11 @@ class DeviceController extends Controller
                             'allow' => true,
                             'roles' => ['@'],
                         ],
-                    
+
                     ],
                 ],
             ],
-            
+
         );
     }
 
@@ -55,7 +54,7 @@ class DeviceController extends Controller
     {
         $searchModel = new DeviceSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-    
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -85,7 +84,6 @@ class DeviceController extends Controller
         $model = new Device();
 
         if ($this->request->isPost) {
-            $model->created_at = DatetimeBehavior::generateDateTime();
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

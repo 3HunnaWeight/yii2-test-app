@@ -1,10 +1,7 @@
 <?php
 
-namespace common\models\FormModel;
+namespace common\models\form_model;
 
-
-
-use common\models\Behaviors\DatetimeBehavior;
 use Yii;
 use yii\base\Model;
 use common\models\User;
@@ -51,15 +48,12 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
-        
+
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        $user->created_at = DatetimeBehavior::generateDateTime();
-        $user->updated_at = DatetimeBehavior::generateDateTime();
         return $user->save();
     }
-
 }

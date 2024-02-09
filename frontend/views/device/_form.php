@@ -1,12 +1,12 @@
 <?php
 
-use common\models\ActiveRecord\Store;
+use common\models\active_record\Store;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 
 /** @var yii\web\View $this */
-/** @var \common\models\ActiveRecord\Device $model */
+/** @var \common\models\active_record\Device $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 

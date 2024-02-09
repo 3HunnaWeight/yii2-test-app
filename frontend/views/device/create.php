@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var \common\models\ActiveRecord\Device $model */
+/** @var \common\models\active_record\Device $model */
 
 $this->title = 'Create Device';
 $this->params['breadcrumbs'][] = ['label' => 'Devices', 'url' => ['index']];

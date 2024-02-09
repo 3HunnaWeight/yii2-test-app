@@ -4,8 +4,8 @@ namespace frontend\controllers;
 
 
 
-use common\models\FormModel\LoginForm;
-use common\models\FormModel\SignupForm;
+use common\models\form_model\LoginForm;
+use common\models\form_model\SignupForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -64,7 +64,7 @@ class SiteController extends Controller
     }
     public function actionLogin()
     {
-        
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

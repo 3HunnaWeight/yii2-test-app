@@ -2,9 +2,9 @@
 
 namespace common\models;
 
-use davidhirtz\yii2\datetime\DateTimeBehavior;
 use Yii;
 use yii\base\NotSupportedException;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -37,7 +37,16 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function behaviors()
     {
-        return [];
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => function () {
+                    return Yii::$app->formatter->asDatetime(time());
+                }
+            ]
+        ];
     }
 
     /**

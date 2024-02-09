@@ -3,10 +3,9 @@
 namespace frontend\controllers;
 
 
-use common\models\ActiveRecord\Device;
-use common\models\ActiveRecord\Store;
-use common\models\Behaviors\DatetimeBehavior;
-use frontend\models\SearchModel\StoreSearch;
+use common\models\active_record\Device;
+use common\models\active_record\Store;
+use frontend\models\search_model\StoreSearch;
 
 
 use yii\filters\AccessControl;
@@ -41,7 +40,7 @@ class StoreController extends Controller
                             'allow' => true,
                             'roles' => ['@'],
                         ],
-                    
+
                     ],
                 ],
             ]
@@ -55,10 +54,10 @@ class StoreController extends Controller
      */
     public function actionIndex()
     {
-     
+
         $searchModel = new StoreSearch();
         $dataProvider = $searchModel->search(\Yii::$app->request->queryParams);
-    
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -71,7 +70,7 @@ class StoreController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -93,7 +92,7 @@ class StoreController extends Controller
 
         return json_encode($result);
     }
-   
+
     /**
      * Creates a new Store model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -104,7 +103,6 @@ class StoreController extends Controller
         $model = new Store();
 
         if ($this->request->isPost) {
-            $model->created_at = DatetimeBehavior::generateDateTime();;
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

@@ -1,8 +1,9 @@
 <?php
 
-namespace common\models\ActiveRecord;
+namespace common\models\active_record;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "store".
@@ -10,7 +11,7 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $created_at
- *
+ *@property string $updated_at
  * @property Device[] $devices
  */
 class Store extends \yii\db\ActiveRecord
@@ -25,7 +26,14 @@ class Store extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => function () {
+                    return Yii::$app->formatter->asDatetime(time());
+                }
+            ]
         ];
     }
     /**
@@ -63,6 +71,4 @@ class Store extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Device::class, ['store_id' => 'id']);
     }
-    
-
 }

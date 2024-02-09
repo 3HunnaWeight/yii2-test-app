@@ -1,6 +1,6 @@
 <?php
 
-use common\models\ActiveRecord\Device;
+use common\models\active_record\Device;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\grid\ActionColumn;
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel, 
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             'id',
@@ -34,14 +34,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Select2::widget([
                     'model' => $searchModel,
                     'attribute' => 'store_id',
-                    'data' => Device::getStoreList(), 
+                    'data' => Device::getStoreList(),
                     'options' => ['placeholder' => 'Select a store ...'],
                     'pluginOptions' => [
                         'allowClear' => true,
                     ],
                 ]),
                 'value' => function ($model) {
-                    return $model->store->name; 
+                    return $model->store->name;
                 },
             ],
             'created_at',
