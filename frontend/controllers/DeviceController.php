@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 
 use common\models\ActiveRecord\Device;
+use common\models\Behaviors\DatetimeBehavior;
 use frontend\models\SearchModel\DeviceSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -84,7 +85,7 @@ class DeviceController extends Controller
         $model = new Device();
 
         if ($this->request->isPost) {
-            $model->created_at = date('Y-m-d H:i:s', time());
+            $model->created_at = DatetimeBehavior::generateDateTime();
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

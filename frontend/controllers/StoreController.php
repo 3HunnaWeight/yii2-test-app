@@ -5,6 +5,7 @@ namespace frontend\controllers;
 
 use common\models\ActiveRecord\Device;
 use common\models\ActiveRecord\Store;
+use common\models\Behaviors\DatetimeBehavior;
 use frontend\models\SearchModel\StoreSearch;
 
 
@@ -103,7 +104,7 @@ class StoreController extends Controller
         $model = new Store();
 
         if ($this->request->isPost) {
-            $model->created_at = date('Y-m-d H:i:s', time());
+            $model->created_at = DatetimeBehavior::generateDateTime();;
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }

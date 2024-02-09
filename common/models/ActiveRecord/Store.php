@@ -2,8 +2,6 @@
 
 namespace common\models\ActiveRecord;
 
-
-use davidhirtz\yii2\datetime\DateTimeBehavior;
 use Yii;
 
 /**
